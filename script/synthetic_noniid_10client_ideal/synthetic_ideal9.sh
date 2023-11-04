@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -l rt_G.small=1
 #$ -l h_rt=36:00:00
-#$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/mnist/$JOB_NAME_$JOB_ID.log
+#$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/synthetic/$JOB_NAME_$JOB_ID.log
 #$ -j y
 
 source /etc/profile.d/modules.sh
