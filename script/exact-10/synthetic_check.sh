@@ -33,6 +33,7 @@ mkdir ${LOG_DIR}
 # DATA_DIR="$SGE_LOCALDIR/$JOB_ID/"
 # cp -r ./ShapleyFL/benchmark/RAW_DATA/MNIST ${DATA_DIR}
 cd ./ShapleyFL
+mkdir ./SV_result
 mkdir ./SV_result/synthetic_classification_cnum10_dist10_skew0.5_seed0
 
 cd ./ShapleyFL
@@ -57,7 +58,7 @@ PROPORTION=1.0
 python main.py \
     --task $TASK \
     --model lr \
-    --algorithm fedavg \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.01 \
