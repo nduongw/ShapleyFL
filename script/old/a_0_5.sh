@@ -9,7 +9,7 @@ TASK="${TASK}_cnum${NUM_CLIENTS}_dist${DIST}_skew${SKEW}_seed${SEED}"
 GPU_IDS=( 1 )
 NUM_THREADS=1
 BATCH_SIZE=10
-NUM_ROUNDS=5
+NUM_ROUNDS=2
 PROPORTION=1.0
     
 python main_ideal.py \
@@ -28,5 +28,5 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 1022 \
+    --start 1 \
     --end -1 \
