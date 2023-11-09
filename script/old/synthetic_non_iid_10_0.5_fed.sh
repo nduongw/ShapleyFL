@@ -15,13 +15,13 @@ PROPORTION=1.0
 python main.py \
     --task $TASK \
     --model lr \
-    --algorithm sv_test \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.5 \
     --lr_scheduler 0 \
     --learning_rate_decay 1.0 \
-    --proportion $PROPORTION \
+    --proportion 1 \
     --batch_size $BATCH_SIZE \
     --eval_interval 1 \
     --gpu $GPU_IDS \

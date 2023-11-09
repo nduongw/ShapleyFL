@@ -33,6 +33,10 @@ mkdir ${LOG_DIR}
 # DATA_DIR="$SGE_LOCALDIR/$JOB_ID/"
 # cp -r ./ShapleyFL/benchmark/RAW_DATA/MNIST ${DATA_DIR}
 cd ./ShapleyFL
+mkdir ./SV_result
+mkdir ./SV_result/synthetic_classification_cnum10_dist10_skew0.5_seed0
+
+cd ./ShapleyFL
 # DATA_DIR=benchmark/RAW_DATA/CIFAR100
 
 mkdir ./fedtask  #### Should add the save directory to be the option of generate_fedtask. And using this directory to be the input of main.py
@@ -48,13 +52,13 @@ TASK="${TASK}_cnum${NUM_CLIENTS}_dist${DIST}_skew${SKEW}_seed${SEED}"
 GPU_IDS=( 0 )
 NUM_THREADS=1
 BATCH_SIZE=10
-NUM_ROUNDS=100
+NUM_ROUNDS=5
 PROPORTION=1.0
     
-python main_ideal.py \
+python main.py \
     --task $TASK \
     --model lr \
-    --algorithm fedavg \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.01 \
@@ -67,7 +71,5 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 950 \
-    --end -1 \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR   
