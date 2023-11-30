@@ -286,8 +286,8 @@ class Server(BasicServer):
             end = time.time()
             self.calculate_SV_time += (end - start)
             print(round_SV)
-            # with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
-            #     pickle.dump(round_SV, f)
+            with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
+                pickle.dump(round_SV, f)
             with open(os.path.join(self.acc_dir, 'Round{}.json'.format(self.current_round)), 'w') as f:
                 json.dump(self.rnd_acc_dict, f)
             wandb.save(os.path.join(self.acc_dir, 'Round{}.json'.format(self.current_round)))

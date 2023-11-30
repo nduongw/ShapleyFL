@@ -1,5 +1,5 @@
-TASK="mnist_classification"
-DIST=1
+TASK="synthetic_classification"
+DIST=10
 SKEW=0.5
 NUM_CLIENTS=10
 SEED=0
@@ -8,14 +8,14 @@ python generate_fedtask.py --benchmark $TASK --dist $DIST --skew $SKEW --num_cli
 TASK="${TASK}_cnum${NUM_CLIENTS}_dist${DIST}_skew${SKEW}_seed${SEED}"
 GPU_IDS=( 1 )
 NUM_THREADS=1
-BATCH_SIZE=64
-NUM_ROUNDS=50
+BATCH_SIZE=10
+NUM_ROUNDS=100
 PROPORTION=1.0
 
 python main.py \
     --task $TASK \
-    --model cnn \
-    --algorithm sv_test \
+    --model lr \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.01 \
