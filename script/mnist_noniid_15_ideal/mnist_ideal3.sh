@@ -66,8 +66,8 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 11000 \
-    --end 12100 \
+    --start 9900 \
+    --end 11000 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR
