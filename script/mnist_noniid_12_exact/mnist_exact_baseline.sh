@@ -33,6 +33,8 @@ mkdir ${LOG_DIR}
 DATA_DIR="$SGE_LOCALDIR/$JOB_ID/"
 cp -r ./ShapleyFL/benchmark/RAW_DATA/MNIST ${DATA_DIR}
 cd ./ShapleyFL
+
+mkdir ./SV_result
 # DATA_DIR=benchmark/RAW_DATA/CIFAR100
 
 mkdir ./fedtask  #### Should add the save directory to be the option of generate_fedtask. And using this directory to be the input of main.py
@@ -40,7 +42,7 @@ mkdir ./fedtask  #### Should add the save directory to be the option of generate
 TASK="mnist_classification"
 DIST=1
 SKEW=0.5
-NUM_CLIENTS=15
+NUM_CLIENTS=12
 SEED=0
 python generate_fedtask.py --benchmark $TASK --dist $DIST --skew $SKEW --num_clients $NUM_CLIENTS --seed $SEED
 
@@ -51,10 +53,10 @@ BATCH_SIZE=64
 NUM_ROUNDS=50
 PROPORTION=1.0
     
-python main_ideal.py \
+python main.py \
     --task $TASK \
     --model cnn \
-    --algorithm fedavg \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.01 \
@@ -67,8 +69,7 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 4400 \
-    --end 5500 \
+    --exact \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR

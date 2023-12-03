@@ -40,7 +40,7 @@ mkdir ./fedtask  #### Should add the save directory to be the option of generate
 TASK="mnist_classification"
 DIST=1
 SKEW=0.5
-NUM_CLIENTS=15
+NUM_CLIENTS=12
 SEED=0
 python generate_fedtask.py --benchmark $TASK --dist $DIST --skew $SKEW --num_clients $NUM_CLIENTS --seed $SEED
 
@@ -67,8 +67,8 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 17600 \
-    --end 18700 \
+    --start 800 \
+    --end 1000 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR

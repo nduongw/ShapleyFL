@@ -24,6 +24,7 @@ PATH=/apps/centos7/python/3.10.4/bin:${PATH}
 
 source ~/venv/pytorch1.11+horovod/bin/activate
 python --version
+​
 LOG_DIR="/home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/mnist/$JOB_NAME_$JOB_ID"
 rm -r ${LOG_DIR}
 mkdir ${LOG_DIR}
@@ -39,7 +40,7 @@ mkdir ./fedtask  #### Should add the save directory to be the option of generate
 TASK="mnist_classification"
 DIST=1
 SKEW=0.5
-NUM_CLIENTS=15
+NUM_CLIENTS=12
 SEED=0
 python generate_fedtask.py --benchmark $TASK --dist $DIST --skew $SKEW --num_clients $NUM_CLIENTS --seed $SEED
 
@@ -66,8 +67,8 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 13200 \
-    --end 14300 \
+    --start 1800 \
+    --end 2000 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR
