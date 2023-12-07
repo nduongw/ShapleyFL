@@ -1,9 +1,9 @@
-#!/bin/bash
-#$ -cwd
-#$ -l rt_G.small=1
-#$ -l h_rt=36:00:00
-#$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/mnist/$JOB_NAME_$JOB_ID.log
-#$ -j y
+# #!/bin/bash
+# #$ -cwd
+# #$ -l rt_G.small=1
+# #$ -l h_rt=36:00:00
+# #$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/mnist/$JOB_NAME_$JOB_ID.log
+# #$ -j y
 
 source /etc/profile.d/modules.sh
 #module load gcc/11.2.0
@@ -24,12 +24,12 @@ PATH=/apps/centos7/python/3.10.4/bin:${PATH}
 
 source ~/venv/pytorch1.11+horovod/bin/activate
 python --version
-​
+
 LOG_DIR="/home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/mnist/$JOB_NAME_$JOB_ID"
 rm -r ${LOG_DIR}
 mkdir ${LOG_DIR}
 
-# #Dataset
+# # #Dataset
 DATA_DIR="$SGE_LOCALDIR/$JOB_ID/"
 cp -r ./ShapleyFL/benchmark/RAW_DATA/MNIST ${DATA_DIR}
 cd ./ShapleyFL
@@ -67,8 +67,8 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 3200 \
-    --end 3300 \
+    --start 3800 \
+    --end 3900 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR
