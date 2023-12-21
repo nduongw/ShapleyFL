@@ -267,12 +267,12 @@ class Server(BasicServer):
         names = clients_reply['name']
         print("Round clients:", self.received_clients)
         if self.calculate_fl_SV:
-            start = time.time()
             print('Finish training!')
             self.rnd_models_dict = dict()
             for model, name in zip(models, names):
                 self.rnd_models_dict[int(name.replace('Client', ''))] = model
-                
+            
+            start = time.time()    
             print('Start to calculate FL SV round {}'.format(self.current_round))
             self.init_round()
             if self.const_lambda or self.optimal_lambda:
