@@ -9,7 +9,7 @@ def main():
     wandb.init(
         entity="aiotlab",
         project='SV_FL',
-        name="FedSV_{}".format(option['task']),
+        name="FedSV_number_{}_{}".format(option['round_calSV'],option['task']),
         group=f"{option['task'].split('_')[0]}",
         tags=[option['task'].split('_')[2], option['task'].split('_')[3], option['task'].split('_')[4]],
         config=option

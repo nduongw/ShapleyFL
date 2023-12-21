@@ -70,6 +70,7 @@ python main.py \
     --aggregate weighted_scale \
     --sample full \
     --exact \
+    --round_calSV 7 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR

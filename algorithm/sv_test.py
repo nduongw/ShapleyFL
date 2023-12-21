@@ -36,6 +36,7 @@ class Server(BasicServer):
         self.optimal_lambda_samples = min(pow(2, self.clients_per_round) - 1, option['optimal_lambda_samples'])
         self.calculate_fl_SV = self.exact or self.const_lambda or self.optimal_lambda
         self.start_round = option['start_round']
+        self.round_calSV = option['round_calSV']
         
         if self.exact:
             self.exact_dir = os.path.join('./SV_result', self.option['task'], 'exact-{}'.format(self.clients_per_round))
@@ -279,7 +280,25 @@ class Server(BasicServer):
             end = time.time()
             self.calculate_SV_time += (end - start)
             print('Finish init round!')
-        if self.exact and (self.current_round >= self.start_round):
+        if self.round_calSV >= 0:
+            if self.exact and (self.current_round % 10 == self.round_calSV) and (self.current_round >= self.start_round):
+                start = time.time()
+                print('Exact FL SV', end=': ')
+                round_SV = self.calculate_round_exact_SV()
+                end = time.time()
+                self.calculate_SV_time += (end - start)
+                print(round_SV)
+                with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
+                    pickle.dump(round_SV, f)
+                with open(os.path.join(self.acc_dir, 'Round{}.json'.format(self.current_round)), 'w') as f:
+                    json.dump(self.rnd_acc_dict, f)
+                wandb.save(os.path.join(self.acc_dir, 'Round{}.json'.format(self.current_round)))
+                with open(os.path.join(self.loss_dir, 'Round{}.json'.format(self.current_round)), 'w') as f:
+                    json.dump(self.rnd_loss_dict, f)
+                wandb.save(os.path.join(self.loss_dir, 'Round{}.json'.format(self.current_round)))
+            else:
+                print('Skip this round')
+        if self.exact and (self.current_round >= self.start_round) and (self.round_calSV < 0):
             start = time.time()
             print('Exact FL SV', end=': ')
             round_SV = self.calculate_round_exact_SV()
