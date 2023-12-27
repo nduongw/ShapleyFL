@@ -15,7 +15,7 @@ PROPORTION=1.0
 python main.py \
     --task $TASK \
     --model cnn \
-    --algorithm sv_test \
+    --algorithm sv_fedavg \
     --num_rounds $NUM_ROUNDS \
     --num_epochs 2 \
     --learning_rate 0.01 \

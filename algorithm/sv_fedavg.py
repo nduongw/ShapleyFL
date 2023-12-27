@@ -28,6 +28,7 @@ class Server(BasicServer):
         self.optimal_lambda = option['optimal_lambda']
         self.optimal_lambda_samples = option['optimal_lambda_samples']
         self.calculate_fl_SV = self.exact or self.const_lambda or self.optimal_lambda
+        self.round_calSV = option['round_calSV']
         self.sv_const_logs = []
         self.sv_exact_logs = []
         self.sv_opt_logs = []
@@ -410,15 +411,28 @@ class Server(BasicServer):
             self.init_round_MID()
             print('Finish init round!')
         # return
-        if self.exact:
-            print('Exact FL SV', end=': ')
-            round_SV = self.calculate_round_exact_SV()
-            print(round_SV)
-            round_SV = round_SV.tolist()
-            round_SV.append(round)
-            self.sv_exact_logs.append(round_SV)
-            with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
-                pickle.dump(round_SV, f)
+        if self.round_calSV >= 0:
+            if self.exact and (self.current_round % 10 == self.round_calSV):
+                print('Exact FL SV', end=': ')
+                round_SV = self.calculate_round_exact_SV()
+                print(round_SV)
+                round_SV = round_SV.tolist()
+                round_SV.append(round)
+                self.sv_exact_logs.append(round_SV)
+                with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
+                    pickle.dump(round_SV, f)
+            else:
+                print('Skip this round!')
+        else :
+            if self.exact:
+                print('Exact FL SV', end=': ')
+                round_SV = self.calculate_round_exact_SV()
+                print(round_SV)
+                round_SV = round_SV.tolist()
+                round_SV.append(round)
+                self.sv_exact_logs.append(round_SV)
+                with open(os.path.join(self.exact_dir, 'Round{}.npy'.format(self.current_round)), 'wb') as f:
+                    pickle.dump(round_SV, f)        
         if self.const_lambda:
             print('Const lambda FL SV', end=': ')
             round_SV = self.calculate_round_const_lambda_SV()
