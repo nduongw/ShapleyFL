@@ -29,6 +29,8 @@ class Server(BasicServer):
         self.optimal_lambda_samples = option['optimal_lambda_samples']
         self.calculate_fl_SV = self.exact or self.const_lambda or self.optimal_lambda
         self.round_calSV = option['round_calSV']
+        self.start_round = option['start_round']
+        
         self.sv_const_logs = []
         self.sv_exact_logs = []
         self.sv_opt_logs = []
@@ -412,7 +414,7 @@ class Server(BasicServer):
             print('Finish init round!')
         # return
         if self.round_calSV >= 0:
-            if self.exact and (self.current_round % 10 == self.round_calSV):
+            if self.exact and (self.current_round % 10 == self.round_calSV) and (self.current_round >= self.start_round):
                 print('Exact FL SV', end=': ')
                 round_SV = self.calculate_round_exact_SV()
                 print(round_SV)
@@ -424,7 +426,7 @@ class Server(BasicServer):
             else:
                 print('Skip this round!')
         else :
-            if self.exact:
+            if self.exact and (self.current_round >= self.start_round):
                 print('Exact FL SV', end=': ')
                 round_SV = self.calculate_round_exact_SV()
                 print(round_SV)

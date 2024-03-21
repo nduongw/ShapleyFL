@@ -2,17 +2,28 @@
 #$ -cwd
 #$ -l rt_G.small=1
 #$ -l h_rt=36:00:00
-#$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/cifar100/$JOB_NAME_$JOB_ID.log
+#$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/cifar100/$JOB_NAME_$JOB_ID.log
 #$ -j y
 
 source /etc/profile.d/modules.sh
-module load gcc/11.2.0
-module load openmpi/4.1.3
+#module load gcc/11.2.0
+#Old gcc. Newest support is 12.2.0. See module avail
+LD_LIBRARY_PATH=/apps/centos7/gcc/11.2.0/lib:${LD_LIBRARY_PATH}
+PATH=/apps/centos7/gcc/11.2.0/bin:${PATH}
+#module load openmpi/4.1.3
+#Old mpi. Use intel mpi instead
+LD_LIBRARY_PATH=/apps/centos7/openmpi/4.1.3/gcc11.2.0/lib:${LD_LIBRARY_PATH}
+PATH=/apps/centos7/openmpi/4.1.3/gcc11.2.0/bin:${PATH}
 module load cuda/11.5/11.5.2
 module load cudnn/8.3/8.3.3
 module load nccl/2.11/2.11.4-1
-module load python/3.10/3.10.4
+#module load python/3.10/3.10.4
+#Old python. Newest support is 10.3.10.10. See module avail
+LD_LIBRARY_PATH=/apps/centos7/python/3.10.4/lib:${LD_LIBRARY_PATH}
+PATH=/apps/centos7/python/3.10.4/bin:${PATH}
+
 source ~/venv/pytorch1.11+horovod/bin/activate
+python --version
 ​
 LOG_DIR="/home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/cifar100/$JOB_NAME_$JOB_ID"
 rm -r ${LOG_DIR}
@@ -56,7 +67,7 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 715 \
+    --start 729 \
     --end 758 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
