@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -l rt_G.small=1
-#$ -l h_rt=36:00:00
+#$ -l h_rt=48:00:00
 #$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/cifar10/$JOB_NAME_$JOB_ID.log
 #$ -j y
 
@@ -68,7 +68,7 @@ python main_ideal.py \
     --aggregate weighted_scale \
     --sample full \
     --start 770 \
-    --end 800 \
+    --end 785 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR

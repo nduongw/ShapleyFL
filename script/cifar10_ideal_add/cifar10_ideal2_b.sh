@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -l rt_G.small=1
-#$ -l h_rt=36:00:00
+#$ -l h_rt=48:00:00
 #$ -o /home/aaa10078nj/Federated_Learning/Khanh_SV_FL/cifar10/$JOB_NAME_$JOB_ID.log
 #$ -j y
 
@@ -24,6 +24,7 @@ PATH=/apps/centos7/python/3.10.4/bin:${PATH}
 
 source ~/venv/pytorch1.11+horovod/bin/activate
 python --version
+​
 LOG_DIR="/home/aaa10078nj/Federated_Learning/Khanh_SV_FL/logs/cifar10/$JOB_NAME_$JOB_ID"
 rm -r ${LOG_DIR}
 mkdir ${LOG_DIR}
@@ -66,8 +67,8 @@ python main_ideal.py \
     --num_threads $NUM_THREADS \
     --aggregate weighted_scale \
     --sample full \
-    --start 55 \
-    --end 116 \
+    --start 346 \
+    --end 359 \
     --data_path $DATA_DIR \
     --fedtask_path fedtask \
     --log_folder $LOG_DIR
